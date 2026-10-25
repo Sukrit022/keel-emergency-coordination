@@ -1,28 +1,81 @@
 # Keel
 
-Keel is a React and Vite prototype for coordinating critical infrastructure support. It gives facilities a structured way to report a need, gives coordinators a controlled review and matching workflow, and gives specialists a focused view of their assignments.
+Keel is a React and Vite prototype for coordinating critical infrastructure support. Facilities can report needs, coordinators can review and match support, and specialists can manage their assignments.
 
-The application is intentionally a browser-only demonstration. All facilities, people, requests, assignments, and activity records are fictional sample data.
+The application is a browser-only demonstration using fictional sample data. It is not connected to live facilities, people, infrastructure, or external services.
 
-## What the platform does
+## Requirements
+
+- Node.js 18 or newer
+- npm 9 or newer
+
+## Run locally
+
+Clone or download the repository, then open a terminal in the project directory:
+
+```powershell
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite. It is normally:
+
+```text
+http://localhost:5173
+```
+
+The development server supports hot module replacement. Stop it with `Ctrl+C`.
+
+## Build and preview
+
+Create a production build:
+
+```powershell
+npm run build
+```
+
+The generated files are written to `dist`.
+
+Preview the production build locally:
+
+```powershell
+npm run preview
+```
+
+The preview server normally runs at:
+
+```text
+http://localhost:4173
+```
+
+## Available npm scripts
+
+| Command | Purpose |
+|---|---|
+| `npm install` | Install project dependencies |
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Type-check and create the production build |
+| `npm run preview` | Serve the production build locally |
+
+## Platform overview
 
 Keel models a human-reviewed support lifecycle:
 
 1. A facility reports an operational need.
-2. The request is recorded with its issue, required expertise, operating status, verification notes, and follow-up details.
-3. A coordinator reviews the request, checks its priority, and verifies the available information.
+2. The request records its issue, required expertise, operating status, verification notes, and follow-up details.
+3. A coordinator reviews the request and checks its priority and available information.
 4. The coordinator matches and approves a qualified, available specialist.
 5. The specialist confirms the assignment and begins work.
 6. The specialist or facility marks the work complete.
 7. The request becomes resolved and the decision remains visible in the activity history.
 
-Keel does not make safety decisions, automatically approve assignments, or connect to live infrastructure.
+Keel does not make safety decisions, automatically approve assignments, or create real accounts.
 
 ## Features
 
 ### Request intake
 
-- Facility operators can submit requests through **Ask for help**.
+- Facility operators submit requests through **Ask for help**.
 - Required information includes the reporting role, callback details, main issue, requested expertise, and verification notes.
 - New requests start as **Awaiting review** with **Pending assessment** priority.
 - Facility operators see only their facility's requests.
@@ -75,10 +128,10 @@ An eligible specialist can be assigned only through coordinator approval. Spare-
 
 Facility operators can offer a verified and available specialist to other facilities:
 
-- Select **Offer a specialist**.
-- Choose a verified, available specialist.
-- Explicitly select **I consent**.
-- Submit the offer for coordinator review.
+1. Select **Offer a specialist**.
+2. Choose a verified, available specialist.
+3. Explicitly select **I consent**.
+4. Submit the offer for coordinator review.
 
 The offer does not move or assign the specialist. It becomes accepted only after a coordinator approves a match, and both the offer and approval are recorded.
 
@@ -102,11 +155,11 @@ The offer does not move or assign the specialist. It becomes accepted only after
 ### Guided views and responsive interface
 
 - The public home page explains the platform and available personas.
-- Each persona has a role-specific navigation and guide.
+- Each persona has role-specific navigation and a guide.
 - The interface includes responsive layouts for smaller screens.
 - The visual system uses a warm off-white background, deep teal/lavender primary actions, and muted red, amber, green, and blue status accents.
 
-## Using Keel by persona
+## How to operate Keel by persona
 
 ### Coordinator
 
@@ -169,59 +222,16 @@ The initial data includes a review, approval, escalation, and completion scenari
 
 Use **Reset workspace** in the sidebar to restore the original scenario.
 
-## Requirements
+## Local data and reset behavior
 
-- Node.js 18 or newer
-- npm 9 or newer
+Keel stores prototype changes in the browser's local storage:
 
-## Install and run locally
+- `keel-workspace`: facilities, requests, specialists, assignments, offers, and events.
+- `keel-onboarding`: local specialist and facility onboarding submissions.
 
-From the project directory:
+No data is sent to a backend. Clearing browser storage removes local changes. The in-app **Reset workspace** action restores the seeded records and clears onboarding submissions.
 
-```powershell
-cd E:\FK
-npm install
-npm run dev
-```
-
-Open the local URL printed by Vite. It is normally:
-
-```text
-http://localhost:5173
-```
-
-The development server supports hot module replacement. Stop it with `Ctrl+C`.
-
-## Build and preview
-
-Create a production build:
-
-```powershell
-npm run build
-```
-
-The generated files are written to `dist`.
-
-Preview the production build locally:
-
-```powershell
-npm run preview
-```
-
-The preview server normally runs at:
-
-```text
-http://localhost:4173
-```
-
-## Available npm scripts
-
-| Command | Purpose |
-|---|---|
-| `npm install` | Install project dependencies |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Type-check and create the production build |
-| `npm run preview` | Serve the production build locally |
+The account screens are simulated. They do not create real accounts, authenticate users, or connect to an identity system.
 
 ## Project structure
 
@@ -239,17 +249,6 @@ http://localhost:4173
 │   └── styles.css         # Layout, responsive styles, and visual design tokens
 └── dist/                  # Generated production output
 ```
-
-## Local data and reset behavior
-
-Keel stores prototype changes in the browser's local storage:
-
-- `keel-workspace`: facilities, requests, specialists, assignments, offers, and events.
-- `keel-onboarding`: local specialist and facility onboarding submissions.
-
-No data is sent to a backend. Clearing browser storage removes local changes. The in-app **Reset workspace** action restores the seeded records and clears onboarding submissions.
-
-The account screens are also simulated. They do not create real accounts, authenticate users, or connect to an identity system.
 
 ## Limitations and safety boundaries
 
